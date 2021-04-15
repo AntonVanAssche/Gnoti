@@ -1,0 +1,12 @@
+{
+   "uuid": "Gnoti@AntonVA.dev",
+   "name": "Gnoti",
+   "description": "Changes position of the notification banner",
+   "version": 1,
+   "shell-version": [
+      "3.36",
+      "3.38",
+      "40"
+   ],
+   "url": "https://gitlab.com/sudo_TuX/gnoti"
+}
