@@ -18,7 +18,7 @@ function init() {
 function enable() {
     log(`enabling ${Me.metadata.name} version ${Me.metadata.version}`);
 
-	// Change Right.right(); to Left.left(); if you want your notification on the left side of the screen.
+	// Change Right.right(); to Left.topleft(); if you want your notification on the left side of the screen.
     Main.messageTray._bannerBin.x = Right.topright();
 }
 
