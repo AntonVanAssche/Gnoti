@@ -1,9 +1,9 @@
 # Gnoti
 Changes the position of your notification.
 
-## Preview
-![preview](./screenshots/right.png)
-
+## Previews
+![preview-right](./screenshots/right.png)
+![preview-left](./screenshots/left.png)
 ## Supported Gnome Shells
 - 3.36
 - 3.38
