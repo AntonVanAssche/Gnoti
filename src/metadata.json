@@ -1,7 +1,7 @@
 {
    "uuid": "Gnoti@AntonVA.dev",
    "name": "Gnoti",
-   "description": "Changes position of the notification banner",
+   "description": "Changes the position and duration of your notification.",
    "version": 1,
    "shell-version": [
       "3.36",
