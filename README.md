@@ -1,5 +1,5 @@
 # Gnoti
-Changes the position of your notification.
+Changes the position and duration of your notification.
 
 ## Previews
 ![preview-right](./screenshots/right.png)
@@ -15,6 +15,7 @@ Changes the position of your notification.
 - [ ] Bottom-right corner of the screen
 - [X] Top-left corner of the screen
 - [ ] Bottom-left corner of the screen
+- [X] Display notification permanently until action is taken (click or hover).
 
 ## Installation
 **Warning DO NOT run the scripts if you do not fully understand what it does. Seriously, DON'T!**
