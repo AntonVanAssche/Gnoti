@@ -13,8 +13,3 @@ function topright()
 {
     return monitorWidth - messageListWidth - PADDING;
 }
-
-function bottomright()
-{
-    return - monitorHeight - messageListHeight + monitorWidth - messageListWidth - PADDING;
-}
