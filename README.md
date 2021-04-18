@@ -32,7 +32,7 @@ $ ./uninstall.sh
 ```
 **If you want to change the position from the right to the left do the following:**
 
-Change the following line in .local/share/gnome-shell/extensions/Gnoti\@Anton.dev/extension.js:
+Change the following line in .local/share/gnome-shell/extensions/Gnoti\@AntonVA.dev/extension.js:
 ```
 22      Main.messageTray._bannerBin.x = Right.topright();
 ```
