@@ -2,55 +2,58 @@
 Changes the position and duration of your notification.
 
 ## Previews
+**Preview right:**
 ![preview-right](./screenshots/right.png)
+**Preview left:**
 ![preview-left](./screenshots/left.png)
+**Preview center:**
+![preview-left](./screenshots/center.png)
+
 ## Supported Gnome Shells
 - 3.36
 - 3.38
 - 40
 
-# TODO
+## TODO
 
-- [X] Top-right corner of the screen
-- [ ] Bottom-right corner of the screen
-- [X] Top-left corner of the screen
-- [ ] Bottom-left corner of the screen
+- [X] Right corner of the screen
+- [X] Left corner of the screen
+- [X] Center of the screen
 - [X] Display notification permanently until action is taken (click or hover).
+- [ ] Menu on top panel.
 
 ## Installation
 **Warning DO NOT run the scripts if you do not fully understand what it does. Seriously, DON'T!**
 
-**To install this extension do the following:**
+####To install
+First you have to clone this repository and navigate inside of it.
 ```
 $ git clone https://gitlab.com/sudo_TuX/gnoti.git
 $ cd gnoti/
-$ ./install.sh
 ```
-**To uninstall do the following:**
-```
-$ ./uninstall.sh
-```
-**If you want to change the position from the right to the left do the following:**
 
-Change the following line in .local/share/gnome-shell/extensions/Gnoti\@AntonVA.dev/extension.js:
+After this you can install Gnoti using `gnoti` as shown below.
 ```
-22      Main.messageTray._bannerBin.x = Right.topright();
+$ ./gnoti --install [POSITION]
 ```
-to:
+You can chose the following positions: **`topright`, `topleft`, `topcenter`**.
+
+After installation, you can choose a new position by simply executing the same command, but with your new desired position.
+
+####To test this extension
+To test this extension you need to install it first, then you can test it by executing the command below, which will simply display a notification.
 ```
-22      Main.messageTray._bannerBin.x = Left.topleft();
+$ ./gnoti --test
 ```
-Ater this restart your Gnome Shell with ALT+F2, type 'r' and hit ENTER, alternatively you can also reload the Gnome Shell with the following command:
+
+####To uninstall
+To uninstall this extension there is no specific position required.
 ```
-$  busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart("Restarting…")'
-```
-**To test the extension you can do the following:**
-```
-$ ./test.sh
+$ ./gnoti --uninstall
 ```
 
 ## Thanks
-I tried to find an extension to move the position of the  notification banner from the center to the right side of the screen and ended up find [this](https://github.com/brunodrugowick/notification-position-gnome-extension).
+I tried to find an extension to move the position of the  notification banner from the center to the right side of the screen and ended up finding [this](https://github.com/brunodrugowick/notification-position-gnome-extension).
 
 But it wasn't compatible with Gnome 40 at the time. So I decided to take a look at [the repo](https://github.com/brunodrugowick/notification-position-gnome-extension) and create my own extension.
 
