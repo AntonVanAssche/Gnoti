@@ -30,7 +30,8 @@ Changes the position and duration of your notification.
 ## Installation
 **Warning DO NOT run the scripts if you do not fully understand what it does. Seriously, DON'T!**
 
-####To install
+###To install
+
 First you have to clone this repository and navigate inside of it.
 ```
 $ git clone https://gitlab.com/sudo_TuX/gnoti.git
@@ -45,13 +46,15 @@ You can chose the following positions: **`topright`, `topleft`, `topcenter`**.
 
 After installation, you can choose a new position by simply executing the same command, but with your new desired position.
 
-####To test this extension
+###To test this extension
+
 To test this extension you need to install it first, then you can test it by executing the command below, which will simply display a notification.
 ```
 $ ./gnoti --test
 ```
 
-####To uninstall
+###To uninstall
+
 To uninstall this extension there is no specific position required.
 ```
 $ ./gnoti --uninstall
