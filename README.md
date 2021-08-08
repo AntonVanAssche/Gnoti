@@ -3,10 +3,13 @@ Changes the position and duration of your notification.
 
 ## Previews
 **Preview right:**
+
 ![preview-right](./screenshots/right.png)
 **Preview left:**
+
 ![preview-left](./screenshots/left.png)
 **Preview center:**
+
 ![preview-left](./screenshots/center.png)
 
 ## Supported Gnome Shells
