@@ -1,0 +1,105 @@
+#!/bin/bash
+
+# File locations
+EXTENSION_NAME="Gnoti@AntonVA.dev"
+GNOME_EXT_USER_PATH=$HOME"/.local/share/gnome-shell/extensions/"
+
+EXTENSION_PATH=${GNOME_EXT_USER_PATH}${EXTENSION_NAME}
+
+# Display server type
+DISPLAY_SERVER="$(echo $XDG_SESSION_TYPE)"
+
+# Abort if error
+set -e
+
+function message() {
+    # $1 = type , $2 = message
+    # Message types
+    # info
+    # warning
+    # error
+    if [[ -z "${1}" ]] || [[ -z "${2}" ]]; then
+      return
+    fi
+
+    local RED="\e[31m"
+    local GREEN="\e[32m"
+    local YELLOW="\e[33m"
+    local RESET="\e[0m"
+    local MESSAGE_TYPE=""
+    local MESSAGE=""
+    MESSAGE_TYPE="${1}"
+    MESSAGE="${2}"
+
+    case ${MESSAGE_TYPE} in
+      info) echo -e "  [${GREEN}+${RESET}] INFO: ${MESSAGE}";;
+      warn) echo -e "  [${YELLOW}*${RESET}] WARNING: ${MESSAGE}";;
+      error) echo -e "  [${RED}!${RESET}] ERROR: ${MESSAGE}";;
+      *) echo -e "  [?] UNKNOWN: ${MESSAGE}";;
+    esac
+}
+
+if [[ "$1" = "--help" || "$1" =  "--h" ]]; then
+    message info 'Usage:'
+    echo '      ./setup [FLAG] [POSITION]'
+    echo '      Flags:'
+    echo '          --install    (or --i)               Installs the extension with the chosen position.'
+    echo '          --uninstall  (or --u)               Remove Gnoti.'
+    echo '          --test       (or --t)               Test the extension'
+    echo '      Positions:'
+    echo '          topright'
+    echo '          topleft'
+    echo '          topcenter'
+    exit 1
+fi
+
+if [[ "$1" = "--install" || "$1" = "--i" ]]; then
+    case "$2" in
+        topright) POSITION="Main.messageTray._bannerBin.x = Right.topright(); // Top right";;
+        topleft) POSITION="Main.messageTray._bannerBin.x = Left.topleft(); // Top left";;
+        topcenter) POSITION="// Top center";;
+        *) message error "Unknown position: $2" && exit 1;;
+    esac
+    shift;shift;
+
+    mkdir -p ${EXTENSION_PATH}
+    cp -r ./src/* ${EXTENSION_PATH}/
+    touch ${EXTENSION_PATH}/config.json
+    sed "30 i ${POSITION}" ./src/extension.js &> ${EXTENSION_PATH}/extension.js
+    message info "Files copied to ${EXTENSION_PATH}"
+
+    if [[ "${DISPLAY_SERVER}" == "x11" ]]; then
+        message info "Restarting Gnome Shell"
+        busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart("Restarting…")' &> /dev/null
+        message info "Gnoti has been succesfully installed!"
+        exit 1
+    else
+        message info "Gnoti has been succesfully installed!"
+        message warn "Please log out and then log back in for the changes to take effect."
+        exit 1
+    fi
+fi
+
+if [[ "$1" = "--uninstall" || "$1" = "--u" ]]; then
+    rm -rf ${EXTENSION_PATH}
+    message info "Removed files from this location${EXTENSION_PATH}"
+
+    if [[ "${DISPLAY_SERVER}" == "x11" ]]; then
+        message info "Restarting Gnome Shell"
+        busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart("Restarting…")' &> /dev/null
+        message info "Gnoti has been succesfully removed!"
+        exit 1
+    else
+        message info "Gnoti has been succesfully Removed!"
+        message warn "Please log out and then log back in for the changes to take effect."
+        exit 1
+    fi
+fi
+
+if [[ "$1" = "--test" || "$1" = "--t" ]]; then
+    notify-send "Notification" "This is my new position!!!"
+    exit 1
+fi
+
+message error "Unknown option: $*"
+exit 22
