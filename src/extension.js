@@ -28,8 +28,6 @@ function enable() {
         this._notificationTimeoutId = timeout ? 1 : 0;
     }
 
-    // Change Right.topright(); to Left.topleft(); if you want your notification on the left side of the screen.
-    Main.messageTray._bannerBin.x = Right.topright();
 }
 
 // This function will be called after you uninstall/disable this extension using GNOME Tweaks.
