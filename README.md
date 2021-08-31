@@ -66,4 +66,4 @@ I tried to find an extension to move the position of the  notification banner fr
 But it wasn't compatible with Gnome 40 at the time. So I decided to take a look at [the repo](https://github.com/brunodrugowick/notification-position-gnome-extension) and create my own extension.
 
 ## Feedback
-This extension isn't perfect therefore suggestions/improvements are always [welcome](https://gitlab.com/sudo_TuX/gnoti/-/issues)!
+This extension isn't perfect therefore suggestions/improvements are always [welcome](https://github.com/TuX-sudo/gnoti/issues)!
