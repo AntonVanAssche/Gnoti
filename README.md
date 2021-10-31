@@ -18,6 +18,7 @@ Changes the position and duration of your notification.
 - 3.36
 - 3.38
 - 40
+- 41
 
 ## TODO
 
