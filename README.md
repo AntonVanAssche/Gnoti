@@ -35,7 +35,7 @@ Changes the position and duration of your notification.
 
 First you have to clone this repository and navigate inside of it.
 ```
-$ git clone https://gitlab.com/sudo_TuX/gnoti.git
+$ git clone https://github.com/TuX-sudo/gnoti.git
 $ cd gnoti/
 ```
 
