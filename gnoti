@@ -35,68 +35,71 @@ function message() {
       *) echo -e "  [?] UNKNOWN: ${MESSAGE}";;
     esac
 }
-
-if [[ "$1" = "--help" || "$1" =  "--h" ]]; then
-    message info 'Usage:'
-    echo '      ./setup [FLAG] [POSITION]'
-    echo '      Flags:'
-    echo '          --install    (or --i)               Installs the extension with the chosen position.'
-    echo '          --uninstall  (or --u)               Remove Gnoti.'
-    echo '          --test       (or --t)               Test the extension'
-    echo '      Positions:'
-    echo '          topright'
-    echo '          topleft'
-    echo '          topcenter'
-    exit 1
-fi
-
-if [[ "$1" = "--install" || "$1" = "--i" ]]; then
-    case "$2" in
-        topright) position="Main.messageTray._bannerBin.x = Right.topright(); // Top right";;
-        topleft) position="Main.messageTray._bannerBin.x = Left.topleft(); // Top left";;
-        topcenter) position="// Top center";;
-        *) message error "Unknown position: $2" && exit 1;;
-    esac
-    shift;shift;
-
-    mkdir -p ${extensionPath}
-    cp -r ./src/* ${extensionPath}/
-    touch ${extensionPath}/config.json
-    sed "30 i ${position}" ./src/extension.js &> ${extensionPath}/extension.js
-    message info "Files copied to ${extensionPath}"
-
-    if [[ "${XDG_SESSION_TYPE}" == "x11" ]]; then
-        message info "Restarting Gnome Shell"
-        busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart("Restarting…")' &> /dev/null
-        message info "Gnoti has been succesfully installed!"
+case $1 in
+    "--help"| "--h")
+        message info 'Usage:'
+        echo '      ./setup [FLAG] [POSITION]'
+        echo '      Flags:'
+        echo '          --install    (or --i)               Installs the extension with the chosen position.'
+        echo '          --uninstall  (or --u)               Remove Gnoti.'
+        echo '          --test       (or --t)               Test the extension'
+        echo '      Positions:'
+        echo '          topright'
+        echo '          topleft'
+        echo '          topcenter'
         exit 1
-    else
-        message info "Gnoti has been succesfully installed!"
-        message warn "Please log out and then log back in for the changes to take effect."
+        ;;
+
+    "--install"| "--i")
+        case "$2" in
+            topright) position="Main.messageTray._bannerBin.x = Right.topright(); // Top right";;
+            topleft) position="Main.messageTray._bannerBin.x = Left.topleft(); // Top left";;
+            topcenter) position="// Top center";;
+            *) message error "Unknown position: $2" && exit 1;;
+        esac
+        shift;shift;
+
+        mkdir -p ${extensionPath}
+        cp -r ./src/* ${extensionPath}/
+        touch ${extensionPath}/config.json
+        sed "30 i ${position}" ./src/extension.js &> ${extensionPath}/extension.js
+        message info "Files copied to ${extensionPath}"
+
+        if [[ "${XDG_SESSION_TYPE}" == "x11" ]]; then
+            message info "Restarting Gnome Shell"
+            busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart("Restarting…")' &> /dev/null
+            message info "Gnoti has been succesfully installed!"
+            exit 1
+        else
+            message info "Gnoti has been succesfully installed!"
+            message warn "Please log out and then log back in for the changes to take effect."
+            exit 1
+        fi
+        ;;
+    
+    "--uninstall"| "--u")
+        rm -rf ${extensionPath}
+        message info "Removed files from this location${extensionPath}"
+
+        if [[ "${XDG_SESSION_TYPE}" == "x11" ]]; then
+            message info "Restarting Gnome Shell"
+            busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart("Restarting…")' &> /dev/null
+            message info "Gnoti has been succesfully removed!"
+            exit 1
+        else
+            message info "Gnoti has been succesfully Removed!"
+            message warn "Please log out and then log back in for the changes to take effect."
+            exit 1
+        fi
+        ;;
+
+    "--test"| "--t")
+        notify-send "Notification" "This is my new position!!!"
         exit 1
-    fi
-fi
+    ;;
 
-if [[ "$1" = "--uninstall" || "$1" = "--u" ]]; then
-    rm -rf ${extensionPath}
-    message info "Removed files from this location${extensionPath}"
-
-    if [[ "${XDG_SESSION_TYPE}" == "x11" ]]; then
-        message info "Restarting Gnome Shell"
-        busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart("Restarting…")' &> /dev/null
-        message info "Gnoti has been succesfully removed!"
-        exit 1
-    else
-        message info "Gnoti has been succesfully Removed!"
-        message warn "Please log out and then log back in for the changes to take effect."
-        exit 1
-    fi
-fi
-
-if [[ "$1" = "--test" || "$1" = "--t" ]]; then
-    notify-send "Notification" "This is my new position!!!"
-    exit 1
-fi
-
-message error "Unknown option: $*"
-exit 22
+    *)
+        message error "Unknown option: $*"
+        exit 22
+        ;;
+esac
