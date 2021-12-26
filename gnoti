@@ -1,13 +1,10 @@
 #!/bin/bash
 
 # File locations
-EXTENSION_NAME="Gnoti@AntonVA.dev"
-GNOME_EXT_USER_PATH=$HOME"/.local/share/gnome-shell/extensions/"
+extensionName="Gnoti@AntonVA.dev"
+extensionUserPath=$HOME"/.local/share/gnome-shell/extensions/"
 
-EXTENSION_PATH=${GNOME_EXT_USER_PATH}${EXTENSION_NAME}
-
-# Display server type
-DISPLAY_SERVER="$(echo $XDG_SESSION_TYPE)"
+extensionPath=${extensionUserPath}${extensionName}
 
 # Abort if error
 set -e
@@ -55,20 +52,20 @@ fi
 
 if [[ "$1" = "--install" || "$1" = "--i" ]]; then
     case "$2" in
-        topright) POSITION="Main.messageTray._bannerBin.x = Right.topright(); // Top right";;
-        topleft) POSITION="Main.messageTray._bannerBin.x = Left.topleft(); // Top left";;
-        topcenter) POSITION="// Top center";;
+        topright) position="Main.messageTray._bannerBin.x = Right.topright(); // Top right";;
+        topleft) position="Main.messageTray._bannerBin.x = Left.topleft(); // Top left";;
+        topcenter) position="// Top center";;
         *) message error "Unknown position: $2" && exit 1;;
     esac
     shift;shift;
 
-    mkdir -p ${EXTENSION_PATH}
-    cp -r ./src/* ${EXTENSION_PATH}/
-    touch ${EXTENSION_PATH}/config.json
-    sed "30 i ${POSITION}" ./src/extension.js &> ${EXTENSION_PATH}/extension.js
-    message info "Files copied to ${EXTENSION_PATH}"
+    mkdir -p ${extensionPath}
+    cp -r ./src/* ${extensionPath}/
+    touch ${extensionPath}/config.json
+    sed "30 i ${position}" ./src/extension.js &> ${extensionPath}/extension.js
+    message info "Files copied to ${extensionPath}"
 
-    if [[ "${DISPLAY_SERVER}" == "x11" ]]; then
+    if [[ "${XDG_SESSION_TYPE}" == "x11" ]]; then
         message info "Restarting Gnome Shell"
         busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart("Restarting…")' &> /dev/null
         message info "Gnoti has been succesfully installed!"
@@ -81,10 +78,10 @@ if [[ "$1" = "--install" || "$1" = "--i" ]]; then
 fi
 
 if [[ "$1" = "--uninstall" || "$1" = "--u" ]]; then
-    rm -rf ${EXTENSION_PATH}
-    message info "Removed files from this location${EXTENSION_PATH}"
+    rm -rf ${extensionPath}
+    message info "Removed files from this location${extensionPath}"
 
-    if [[ "${DISPLAY_SERVER}" == "x11" ]]; then
+    if [[ "${XDG_SESSION_TYPE}" == "x11" ]]; then
         message info "Restarting Gnome Shell"
         busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart("Restarting…")' &> /dev/null
         message info "Gnoti has been succesfully removed!"
