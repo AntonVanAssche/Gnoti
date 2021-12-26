@@ -20,14 +20,6 @@ Changes the position and duration of your notification.
 - 40
 - 41
 
-## TODO
-
-- [X] Right corner of the screen
-- [X] Left corner of the screen
-- [X] Center of the screen
-- [X] Display notification permanently until action is taken (click or hover).
-- [ ] Menu on top panel.
-
 ## Installation
 **Warning DO NOT run the scripts if you do not fully understand what it does. Seriously, DON'T!**
 
@@ -67,4 +59,4 @@ I tried to find an extension to move the position of the  notification banner fr
 But it wasn't compatible with Gnome 40 at the time. So I decided to take a look at [the repo](https://github.com/brunodrugowick/notification-position-gnome-extension) and create my own extension.
 
 ## Feedback
-This extension isn't perfect therefore suggestions/improvements are always [welcome](https://github.com/TuX-sudo/gnoti/issues)!
+This project isn't perfect, therefor suggestions/improvements are always [welcome](https://github.com/TuX-sudo/gnoti/issues)!
