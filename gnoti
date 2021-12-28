@@ -38,11 +38,11 @@ function message() {
 
 function help() {
     message info 'Usage:'
-    echo '      ./gnoti [FLAG] [POSITION]'
+    echo '          ./gnoti [FLAG]'
     echo '      Flags:'
-    echo '          --install    (or --i)               Installs the extension with the chosen position.'
-    echo '          --uninstall  (or --u)               Remove Gnoti.'
-    echo '          --test       (or --t)               Test the extension'
+    echo '          --install [POSITION]   (or --i)               Install the extension at the chosen position .'
+    echo '          --uninstall            (or --u)               Remove Gnoti.'
+    echo '          --test                 (or --t)               Test the extension'
     echo '      Positions:'
     echo '          topright'
     echo '          topleft'
