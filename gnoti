@@ -35,18 +35,22 @@ function message() {
       *) echo -e "  [?] UNKNOWN: ${MESSAGE}";;
     esac
 }
+
+function help() {
+    message info 'Usage:'
+    echo '      ./gnoti [FLAG] [POSITION]'
+    echo '      Flags:'
+    echo '          --install    (or --i)               Installs the extension with the chosen position.'
+    echo '          --uninstall  (or --u)               Remove Gnoti.'
+    echo '          --test       (or --t)               Test the extension'
+    echo '      Positions:'
+    echo '          topright'
+    echo '          topleft'
+    echo '          topcenter'
+}
 case $1 in
     "--help"| "--h")
-        message info 'Usage:'
-        echo '      ./setup [FLAG] [POSITION]'
-        echo '      Flags:'
-        echo '          --install    (or --i)               Installs the extension with the chosen position.'
-        echo '          --uninstall  (or --u)               Remove Gnoti.'
-        echo '          --test       (or --t)               Test the extension'
-        echo '      Positions:'
-        echo '          topright'
-        echo '          topleft'
-        echo '          topcenter'
+        help
         exit 1
         ;;
 
@@ -61,7 +65,6 @@ case $1 in
 
         mkdir -p ${extensionPath}
         cp -r ./src/* ${extensionPath}/
-        touch ${extensionPath}/config.json
         sed "30 i ${position}" ./src/extension.js &> ${extensionPath}/extension.js
         message info "Files copied to ${extensionPath}"
 
@@ -96,10 +99,11 @@ case $1 in
     "--test"| "--t")
         notify-send "Notification" "This is my new position!!!"
         exit 1
-    ;;
+        ;;
 
     *)
         message error "Unknown option: $*"
+        help
         exit 22
         ;;
 esac
