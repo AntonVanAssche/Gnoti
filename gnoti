@@ -48,6 +48,18 @@ function help() {
     echo '          topleft'
     echo '          topcenter'
 }
+
+function displayServer() {
+    if [[ "${XDG_SESSION_TYPE}" == "x11" ]]; then
+        message info "Restarting Gnome Shell"
+        killall -HUP gnome-shell
+    else
+        message warn "Please log out and then log back in for the changes to take effect."
+    fi
+    
+    exit 1
+}
+
 case $1 in
     "--help"| "--h")
         help
@@ -67,33 +79,15 @@ case $1 in
         cp -r ./src/* ${extensionPath}/
         sed "30 i ${position}" ./src/extension.js &> ${extensionPath}/extension.js
         message info "Files copied to ${extensionPath}"
-
-        if [[ "${XDG_SESSION_TYPE}" == "x11" ]]; then
-            message info "Restarting Gnome Shell"
-            busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart("Restarting…")' &> /dev/null
-            message info "Gnoti has been succesfully installed!"
-            exit 1
-        else
-            message info "Gnoti has been succesfully installed!"
-            message warn "Please log out and then log back in for the changes to take effect."
-            exit 1
-        fi
+        message info "Gnoti has been succesfully installed!"
+        displayServer
         ;;
     
     "--uninstall"| "--u")
         rm -rf ${extensionPath}
         message info "Removed files from this location${extensionPath}"
-
-        if [[ "${XDG_SESSION_TYPE}" == "x11" ]]; then
-            message info "Restarting Gnome Shell"
-            busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart("Restarting…")' &> /dev/null
-            message info "Gnoti has been succesfully removed!"
-            exit 1
-        else
-            message info "Gnoti has been succesfully Removed!"
-            message warn "Please log out and then log back in for the changes to take effect."
-            exit 1
-        fi
+        message info "Gnoti has been succesfully Removed!"
+        displayServer
         ;;
 
     "--test"| "--t")
