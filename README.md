@@ -27,7 +27,7 @@ Changes the position and duration of your notification.
 
 First you have to clone this repository and navigate inside of it.
 ```
-$ git clone https://github.com/TuX-sudo/gnoti.git
+$ git clone https://github.com/AntonVanAssche/gnoti.git
 $ cd gnoti/
 ```
 
@@ -59,4 +59,4 @@ I tried to find an extension to move the position of the  notification banner fr
 But it wasn't compatible with Gnome 40 at the time. So I decided to take a look at [the repo](https://github.com/brunodrugowick/notification-position-gnome-extension) and create my own extension.
 
 ## Feedback
-This project isn't perfect, therefor suggestions/improvements are always [welcome](https://github.com/TuX-sudo/gnoti/issues)!
+This project isn't perfect, therefor suggestions/improvements are always [welcome](https://github.com/AntonVanAssche/gnoti/issues)!
