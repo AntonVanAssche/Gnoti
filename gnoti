@@ -56,7 +56,7 @@ function displayServer() {
     else
         message warn "Please log out and then log back in for the changes to take effect."
     fi
-    
+
     exit 1
 }
 
@@ -82,7 +82,7 @@ case $1 in
         message info "Gnoti has been succesfully installed!"
         displayServer
         ;;
-    
+
     "--uninstall"| "--u")
         rm -rf ${extensionPath}
         message info "Removed files from this location${extensionPath}"
