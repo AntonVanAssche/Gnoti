@@ -3,6 +3,6 @@
    "name": "Gnoti",
    "description": "Changes the position and duration of your notification.",
    "version": 1,
-   "shell-version": ["3.36", "3.38", "40", "41", "42"],
+   "shell-version": ["3.36", "3.38", "40", "41", "42", "43"],
    "url": "https://github.com/TuX-sudo/gnoti"
 }
